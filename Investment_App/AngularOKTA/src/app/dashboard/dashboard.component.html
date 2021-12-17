@@ -1,0 +1,26 @@
+<div>
+    <div class="navbar">
+        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Investment App Dashboard </a>
+        <a href="logout"><i class="fa fa-fw fa-user"></i> Logout</a>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Invest</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor= "let item of fundDetail">
+                    <td>{{item.fundName}}</td>
+                    <td>{{item.description}}</td>
+                    <td> <button class="btn btn-success">Click</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
