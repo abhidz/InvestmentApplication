@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardService } from './dashboard/dashboard.service';
+import { FundActionComponent } from './fund-action/fund-action.component';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   {
@@ -18,6 +20,10 @@ const appRoutes: Routes = [
   {
     path: 'dashboard',
     component:DashboardComponent
+  },
+  {
+    path: 'fundAction',
+    component:FundActionComponent
   }
 ]
 
@@ -26,11 +32,14 @@ const appRoutes: Routes = [
     AppComponent,
     DashboardComponent,
     LoginComponent,
+    FundActionComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
 ],
   providers: [DashboardService],

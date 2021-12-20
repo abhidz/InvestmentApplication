@@ -31,11 +31,18 @@ export class DashboardService {
         {});
     if (result != undefined && result.access_token != null) {
       const accessToken = result.access_token;
+      localStorage.setItem('accesstoken',accessToken);
       this.url = config.oidc.apiBaseUrl2 + '/api/FundDetail';
+      localStorage.setItem('url',this.url);
       return this.http.get(this.url, { headers: { Authorization: 'Bearer ' + accessToken } });
     }
     else {
       return result;
     }
+  }
+
+  deleteFundDetails(response:any){
+    const accesstoken = localStorage.getItem('accesstoken');
+    return this.http.delete(this.url+'/'+response, { headers: { Authorization: 'Bearer ' + accesstoken } });
   }
 }

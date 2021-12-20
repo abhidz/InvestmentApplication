@@ -13,10 +13,25 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     this.service.authorizeCallback().subscribe((data: null | undefined) => {
       if (data != undefined || data != null) {
         this.fundDetail = data;
       }});
+  }
+  
+  deleteFund(response:any){
+    debugger;
+    this.service.deleteFundDetails(response.id).subscribe((data) => {
+      if (data != undefined || data != null) {
+        window.alert('Selected Fund detail removed')
+        location.reload();
+      }
+      else{
+        window.alert('Error');
+      }
+    });
+  }
+  addNewFund(){
+   this.router.navigate(['fundAction']);
   }
 }

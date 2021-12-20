@@ -7,18 +7,21 @@ using System.Collections.Generic;
 
 namespace Investment_App.Commands
 {
-    public class DeleteFundCommand : IRequest<int>
+    public class DeleteFundCommand 
     {
-        public int ID { get; set; }
+        public class Command : IRequest<int>
+        {
+            public int ID { get; set; }
+        }
 
-        public class DeleteFundCommandHandler : IRequestHandler<DeleteFundCommand, int>
+        public class DeleteFundCommandHandler : IRequestHandler<Command, int>
         {
             private readonly IApplicationContext _context;
             public DeleteFundCommandHandler(IApplicationContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(DeleteFundCommand command, CancellationToken cancellationToken)
+            public async Task<int> Handle(Command command, CancellationToken cancellationToken)
             {
                 var fundDetail =  _context.FundDetails.AsQueryable().Where(u => u.ID == command.ID).FirstOrDefault();
                 if (fundDetail == null) return default;

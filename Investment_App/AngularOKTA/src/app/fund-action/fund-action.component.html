@@ -1,0 +1,23 @@
+<div class="formStyle">
+    <div class="container">
+        <form [formGroup]="fundActionForm" (ngSubmit)="onSubmit(fundActionForm)">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label for="afundName">FundName</label>
+                    <input type="text" formControlName="afundName" class="form-control" placeholder="Enter Fund Name">
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" formControlName="description" class="form-control"
+                        placeholder="Enter Description">
+                </div>
+                <div>
+                </div>
+
+                <input type="submit" class="btn btn-success btn-lg" style="width: 200px;" name="Submit" />
+            </div>
+        </form>
+    </div>
+</div>

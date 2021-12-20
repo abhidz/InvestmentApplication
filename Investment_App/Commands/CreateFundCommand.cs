@@ -1,31 +1,35 @@
-﻿using MediatR;
-using System.Threading.Tasks;
+﻿using Investment_App.Context;
 using Investment_App.Model;
-using Investment_App.Context;
+using MediatR;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Investment_App.Commands
 {
-    public class CreateFundCommand : IRequest<int>
+    public class CreateFund
     {
-        public CreateOrUpdateFundDetail fundDetails;
+        public class Command : IRequest<CreateFundOrUpdateResult>
+        {
+            public CreateOrUpdateFundDetail fundDetails;
+        }
 
-        public class CreateFundCommandHandler : IRequestHandler<CreateFundCommand, int>
+        public class Handler : IRequestHandler<Command, CreateFundOrUpdateResult>
         {
             private readonly IApplicationContext _context;
-            public CreateFundCommandHandler(IApplicationContext context)
+            public Handler(IApplicationContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(CreateFundCommand command, CancellationToken cancellationToken)
+            public async Task<CreateFundOrUpdateResult> Handle(Command command, CancellationToken cancellationToken)
             {
-                var fundDetail = new FundDetail();
-                fundDetail.FundName = command.fundDetails.FundName;
-                fundDetail.Description = command.fundDetails.Description;
-                _context.FundDetails.Add(fundDetail);
-                 await _context.SaveChanges();
-                return fundDetail.ID;
+                    var fundDetail = new FundDetail();
+                    fundDetail.FundName = command.fundDetails.FundName;
+                    fundDetail.Description = command.fundDetails.Description;
+                    var entity = _context.FundDetails.Add(fundDetail).Entity;
+                    await _context.SaveChanges();
+                    return new CreateFundOrUpdateResult() { Id = entity.ID };
             }
         }
     }
 }
+

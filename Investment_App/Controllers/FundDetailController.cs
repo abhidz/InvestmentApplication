@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Investment_App.Commands;
 using Investment_App.Queries;
+using Investment_App.Model;
 
 namespace Investment_App.Controllers
 {
@@ -22,17 +23,27 @@ namespace Investment_App.Controllers
                 var result = await _mediator.Send(new GetAllFundDetailsQuery());
                 return Ok(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateFundCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateOrUpdateFundDetail commands)
         {
+
+            var command = new CreateFund.Command
+            {
+                fundDetails = commands
+            };
             try
             {
+                if (command.fundDetails.FundName == null || command.fundDetails.Description == null)
+                {
+                    return BadRequest();
+                }
+
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -45,10 +56,13 @@ namespace Investment_App.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var command = new DeleteFundCommand.Command
+            {
+                ID = id
+            };
             try
             {
-                var result = await _mediator.Send(new DeleteFundCommand { ID = id });
-                return Ok(result);
+                return Ok(await _mediator.Send(command));
             }
             catch (Exception ex)
             {
@@ -56,8 +70,12 @@ namespace Investment_App.Controllers
             }
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateFundCommand command)
+        public async Task<IActionResult> Update(int id, [FromBody]CreateOrUpdateFundDetail commands)
         {
+            var command = new UpdateFund.Command
+            {
+                fundDetails = commands
+            };
             try
             {
                 if (id != command.fundDetails.ID)
