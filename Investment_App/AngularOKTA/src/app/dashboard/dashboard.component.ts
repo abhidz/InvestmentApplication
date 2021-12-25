@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
       }});
   }
   
-  deleteFund(response:any){
+  deleteFundDetails(response:any){
     debugger;
     this.service.deleteFundDetails(response.id).subscribe((data) => {
       if (data != undefined || data != null) {
@@ -31,7 +31,13 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+  editFundDetails(response:any){
+    debugger;
+    localStorage.setItem('fundId',response.id.toString());
+    this.router.navigate(['fundAction']);
+  }
   addNewFund(){
+    localStorage.setItem('fundId','null');
    this.router.navigate(['fundAction']);
   }
 }

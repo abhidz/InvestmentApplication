@@ -24,6 +24,7 @@ namespace Investment_App.Commands
             public async Task<CreateFundOrUpdateResult> Handle(Command command, CancellationToken cancellationToken)
             {
                 var fundDetail = _context.FundDetails.AsQueryable().Where(u => u.ID == command.fundDetails.ID).FirstOrDefault();
+                if (fundDetail == null) return null;
                 fundDetail.FundName = command.fundDetails.FundName;
                 fundDetail.Description = command.fundDetails.Description;
                 await _context.SaveChanges();

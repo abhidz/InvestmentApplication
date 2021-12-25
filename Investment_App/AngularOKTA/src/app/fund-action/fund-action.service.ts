@@ -10,8 +10,16 @@ export class FundActionService {
 
   constructor(private service:HttpClient) { }
 
-  insertFund(request:any){
-    debugger;
+  insertFundDetail(request:any){
     return this.service.post(this.url, request, { headers: { Authorization: 'Bearer ' + this.accessToken } })
+  }
+
+  updateFundDetail(request:any){
+    debugger;
+    return this.service.put(this.url+ '/' + request.id, request, { headers: { Authorization: 'Bearer ' + this.accessToken } })
+  }
+
+  getFundDetailByID(id:any){
+    return this.service.get(this.url + '/' + id,{ headers: { Authorization: 'Bearer ' + this.accessToken } });
   }
 }

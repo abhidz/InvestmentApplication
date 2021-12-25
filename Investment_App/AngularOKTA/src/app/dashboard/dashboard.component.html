@@ -11,6 +11,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Edit</th>
                     <th>Remove</th>
                 </tr>
             </thead>
@@ -18,7 +19,8 @@
                 <tr *ngFor="let item of fundDetail">
                     <td>{{item.fundName}}</td>
                     <td>{{item.description}}</td>
-                    <td> <button class="btn btn-success" (click)="deleteFund(item)">Remove</button>
+                    <td> <button class="btn btn-success" (click)="editFundDetails(item)">Update</button>
+                    <td> <button class="btn btn-success" (click)="deleteFundDetails(item)">Remove</button>
                     </td>
                 </tr>
             </tbody>

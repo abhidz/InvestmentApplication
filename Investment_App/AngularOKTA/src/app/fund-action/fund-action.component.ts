@@ -14,35 +14,68 @@ export class FundActionComponent implements OnInit {
     private service: FundActionService,
     private router: Router) { }
 
-  fundActionForm: FormGroup | undefined;
+  fundActionForm!: FormGroup;
   submitted: false | undefined;
+  fundId = window.localStorage.getItem("fundId");
 
   ngOnInit(): void {
+    debugger;
+    if (!localStorage.getItem('accesstoken')) {
+      this.router.navigate(['login']);
+      return;
+    }
     this.fundActionForm = this.formBuilder.group({
-      afundName: ['', Validators.required],
+      id: [''],
+      fundName: ['', Validators.required],
       description: ['', Validators.required]
     });
+
+    if (this.fundId != 'null') {
+      this.service.getFundDetailByID(this.fundId).subscribe(data => {
+        this.fundActionForm.setValue(data);
+      });
+    }
   }
 
   onSubmit(form: any) {
-    debugger;
     this.submitted = false;
-    let criteria = {
-      FundName: form.value.afundName,
+    let insertCriteria = {
+      FundName: form.value.fundName,
+      Description: form.value.description
+    }
+    let updateCriteria = {
+      id:form.value.id,
+      FundName: form.value.fundName,
       Description: form.value.description
     }
     if (this.fundActionForm != undefined && this.fundActionForm.valid) {
-      this.service.insertFund(criteria).subscribe((data: any) => {
-        debugger;
-        if (data != undefined) {
-          this.router.navigate(['dashboard']);
-        }
-        else {
-          window.alert('Error in inserting the details. Please retry');
-        }
-      });
+      debugger;
+      if (this.fundId == 'null') {
+        this.service.insertFundDetail(insertCriteria).subscribe((data: any) => {
+          debugger;
+          if (data != undefined) {
+            this.router.navigate(['dashboard']);
+          }
+          else {
+            window.alert('Error in inserting the details. Please retry');
+          }
+        });
+      }
+      else {
+        this.service.updateFundDetail(updateCriteria).subscribe((data: any) => {
+          debugger;
+          if (data != undefined) {
+            localStorage.setItem('fundID', '');
+            this.router.navigate(['dashboard']);
+          }
+          else {
+            window.alert('Error in updating the details. Please retry');
+          }
+        });
+      }
+
     }
-    else{
+    else {
       window.alert('Both fields are mandatory to fill');
     }
   }

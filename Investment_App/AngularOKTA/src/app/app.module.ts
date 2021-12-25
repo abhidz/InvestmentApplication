@@ -24,6 +24,10 @@ const appRoutes: Routes = [
   {
     path: 'fundAction',
     component:FundActionComponent
+  },
+  {
+    path: 'login',
+    component:LoginComponent
   }
 ]
 

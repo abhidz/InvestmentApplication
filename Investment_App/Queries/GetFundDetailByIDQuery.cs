@@ -8,21 +8,22 @@ using MediatR;
 
 namespace Investment_App.Queries
 {
-    public class GetAllFundDetailsQuery 
+    public class GetFundDetailByIDQuery
     {
-        public class Command : IRequest<IEnumerable<FundDetail>>
+        public class Command : IRequest<FundDetail>
         {
+            public int ID { get; set; }
         }
-        public class Handler : IRequestHandler<Command, IEnumerable<FundDetail>>
+        public class Handler : IRequestHandler<Command, FundDetail>
         {
             private readonly IApplicationContext _context;
             public Handler(IApplicationContext applicationContext)
             {
                 _context = applicationContext;
             }
-            public async Task<IEnumerable<FundDetail>> Handle(Command query, CancellationToken cancellationToken)
+            public async Task<FundDetail> Handle(Command query, CancellationToken cancellationToken)
             {
-                var fundList = _context.FundDetails.ToList();
+                var fundList =  _context.FundDetails.AsQueryable().Where(s => s.ID == query.ID).FirstOrDefault();
                 if (fundList == null)
                 {
                     return null;
@@ -32,4 +33,3 @@ namespace Investment_App.Queries
         }
     }
 }
-

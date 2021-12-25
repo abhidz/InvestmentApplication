@@ -18,9 +18,28 @@ namespace Investment_App.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            var command = new GetAllFundDetailsQuery.Command();
             try
             {
-                var result = await _mediator.Send(new GetAllFundDetailsQuery());
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetFundDetailByID(int id)
+        {
+            var command = new GetFundDetailByIDQuery.Command
+            {
+                ID = id
+            };
+            try
+            {
+                var result = await _mediator.Send(command);
                 return Ok(result);
             }
             catch (Exception ex)
