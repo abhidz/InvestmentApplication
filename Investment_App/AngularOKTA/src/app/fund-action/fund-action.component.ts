@@ -19,7 +19,6 @@ export class FundActionComponent implements OnInit {
   fundId = window.localStorage.getItem("fundId");
 
   ngOnInit(): void {
-    debugger;
     if (!localStorage.getItem('accesstoken')) {
       this.router.navigate(['login']);
       return;
@@ -49,10 +48,8 @@ export class FundActionComponent implements OnInit {
       Description: form.value.description
     }
     if (this.fundActionForm != undefined && this.fundActionForm.valid) {
-      debugger;
       if (this.fundId == 'null') {
         this.service.insertFundDetail(insertCriteria).subscribe((data: any) => {
-          debugger;
           if (data != undefined) {
             this.router.navigate(['dashboard']);
           }
@@ -63,7 +60,6 @@ export class FundActionComponent implements OnInit {
       }
       else {
         this.service.updateFundDetail(updateCriteria).subscribe((data: any) => {
-          debugger;
           if (data != undefined) {
             localStorage.setItem('fundID', '');
             this.router.navigate(['dashboard']);

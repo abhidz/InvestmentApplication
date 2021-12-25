@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
   }
   
   deleteFundDetails(response:any){
-    debugger;
     this.service.deleteFundDetails(response.id).subscribe((data) => {
       if (data != undefined || data != null) {
         window.alert('Selected Fund detail removed')
@@ -32,7 +31,6 @@ export class DashboardComponent implements OnInit {
     });
   }
   editFundDetails(response:any){
-    debugger;
     localStorage.setItem('fundId',response.id.toString());
     this.router.navigate(['fundAction']);
   }

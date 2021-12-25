@@ -15,7 +15,6 @@ export class FundActionService {
   }
 
   updateFundDetail(request:any){
-    debugger;
     return this.service.put(this.url+ '/' + request.id, request, { headers: { Authorization: 'Bearer ' + this.accessToken } })
   }
 
