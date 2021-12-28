@@ -11,11 +11,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardService } from './dashboard/dashboard.service';
 import { FundActionComponent } from './fund-action/fund-action.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { NavigateComponent } from './navigate/navigate.component';
 
 const appRoutes: Routes = [
   {
+    path: '',
+    component:LoginComponent
+  },
+  {
     path: 'callback',
-    component:DashboardComponent
+    component:NavigateComponent
   },
   {
     path: 'dashboard',
@@ -24,10 +29,6 @@ const appRoutes: Routes = [
   {
     path: 'fundAction',
     component:FundActionComponent
-  },
-  {
-    path: 'login',
-    component:LoginComponent
   }
 ]
 
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
     DashboardComponent,
     LoginComponent,
     FundActionComponent,
+    NavigateComponent,
   ],
   imports: [
     BrowserModule,

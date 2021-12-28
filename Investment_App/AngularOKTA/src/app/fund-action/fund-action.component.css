@@ -3,7 +3,29 @@
 }
 
 .background{
-    margin-top: 0px;
-    background-color: grey;
+    background-color: darkgray;
     height: 750px;
 }
+.navbar {
+    width: 100%;
+    background-color: gray;
+    overflow: auto;
+}   
+.navbar a:hover {
+    background-color: #000;
+  }
+  
+  .active {
+    background-color: #4CAF50;
+  }
+
+  .link {
+    background-color: goldenrod;
+  }
+  .navbar a {
+    float: left;
+    padding: 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+  }

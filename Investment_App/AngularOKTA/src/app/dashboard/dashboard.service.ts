@@ -34,11 +34,16 @@ export class DashboardService {
       localStorage.setItem('accesstoken',accessToken);
       this.url = config.oidc.apiBaseUrl2 + '/api/FundDetail';
       localStorage.setItem('url',this.url);
-      return this.http.get(this.url, { headers: { Authorization: 'Bearer ' + accessToken } });
+      return this.getFundDetails();
     }
     else {
       return result;
     }
+  }
+
+  getFundDetails(){
+    const accesstoken = localStorage.getItem('accesstoken');
+    return  this.http.get(this.url, { headers: { Authorization: 'Bearer ' + accesstoken } });
   }
 
   deleteFundDetails(response:any){

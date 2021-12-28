@@ -1,3 +1,7 @@
+<div class="navbar">
+    <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Investment App Dashboard </a>
+    <button class="btn btn-secondary" (click)="logout()">Logout</button>
+</div>
 <div class="formStyle">
     <div class="container">
         <form [formGroup]="fundActionForm" (ngSubmit)="onSubmit(fundActionForm)">

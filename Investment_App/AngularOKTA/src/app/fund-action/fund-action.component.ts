@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DashboardService } from '../dashboard/dashboard.service';
 import { FundActionService } from '../fund-action/fund-action.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class FundActionComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private service: FundActionService,
+    private routeService: DashboardService,
     private router: Router) { }
 
   fundActionForm!: FormGroup;
@@ -43,7 +45,7 @@ export class FundActionComponent implements OnInit {
       Description: form.value.description
     }
     let updateCriteria = {
-      id:form.value.id,
+      id: form.value.id,
       FundName: form.value.fundName,
       Description: form.value.description
     }
@@ -51,7 +53,14 @@ export class FundActionComponent implements OnInit {
       if (this.fundId == 'null') {
         this.service.insertFundDetail(insertCriteria).subscribe((data: any) => {
           if (data != undefined) {
-            this.router.navigate(['dashboard']);
+            window.alert('Fund details are inserted successfully');
+            this.routeService.getFundDetails().subscribe((data) => {
+              if (data != undefined || data != null) {
+                this.router.navigate(['dashboard'], {
+                  state: { example: JSON.stringify(data) }
+                });
+              }
+            });
           }
           else {
             window.alert('Error in inserting the details. Please retry');
@@ -61,8 +70,15 @@ export class FundActionComponent implements OnInit {
       else {
         this.service.updateFundDetail(updateCriteria).subscribe((data: any) => {
           if (data != undefined) {
+            window.alert('Fund details are modified successfully');
             localStorage.setItem('fundID', '');
-            this.router.navigate(['dashboard']);
+            this.routeService.getFundDetails().subscribe((data) => {
+              if (data != undefined || data != null) {
+                this.router.navigate(['dashboard'], {
+                  state: { example: JSON.stringify(data) }
+                });
+              }
+            });
           }
           else {
             window.alert('Error in updating the details. Please retry');
@@ -76,4 +92,10 @@ export class FundActionComponent implements OnInit {
     }
   }
 
+  logout(){
+    localStorage.setItem('fundId', '');
+    localStorage.setItem('accesstoken', '');
+    localStorage.setItem('url', '');
+    this.router.navigate(['']);
+  }
 }
