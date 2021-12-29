@@ -6,19 +6,18 @@ import {HttpClient} from '@angular/common/http';
 export class FundActionService {
   
    url:any = localStorage.getItem("url");
-   accessToken: any = localStorage.getItem("accesstoken");
 
   constructor(private service:HttpClient) { }
 
   insertFundDetail(request:any){
-    return this.service.post(this.url, request, { headers: { Authorization: 'Bearer ' + this.accessToken } })
+    return this.service.post(this.url, request);
   }
 
   updateFundDetail(request:any){
-    return this.service.put(this.url+ '/' + request.id, request, { headers: { Authorization: 'Bearer ' + this.accessToken } })
+    return this.service.put(this.url+ '/' + request.id, request);
   }
 
   getFundDetailByID(id:any){
-    return this.service.get(this.url + '/' + id,{ headers: { Authorization: 'Bearer ' + this.accessToken } });
+    return this.service.get(this.url + '/' + id);
   }
 }

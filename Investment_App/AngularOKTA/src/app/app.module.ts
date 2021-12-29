@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { OKTA_CONFIG, OktaAuthModule, OktaAuthGuard, OktaCallbackComponent } from '@okta/okta-angular';
-import { OktaAuth } from '@okta/okta-auth-js';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardService } from './dashboard/dashboard.service';
 import { FundActionComponent } from './fund-action/fund-action.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NavigateComponent } from './navigate/navigate.component';
+import { TokenInterceptor } from './interceptors/token-interceptor';
 
 const appRoutes: Routes = [
   {
@@ -48,7 +47,10 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
 ],
-  providers: [DashboardService],
+  providers: [DashboardService,
+  {
+    provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

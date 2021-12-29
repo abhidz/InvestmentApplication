@@ -42,12 +42,10 @@ export class DashboardService {
   }
 
   getFundDetails(){
-    const accesstoken = localStorage.getItem('accesstoken');
-    return  this.http.get(this.url, { headers: { Authorization: 'Bearer ' + accesstoken } });
+    return  this.http.get(this.url);
   }
 
   deleteFundDetails(response:any){
-    const accesstoken = localStorage.getItem('accesstoken');
-    return this.http.delete(this.url+'/'+response, { headers: { Authorization: 'Bearer ' + accesstoken } });
+    return this.http.delete(this.url+'/'+response);
   }
 }
