@@ -12,5 +12,12 @@ namespace Investment_App.Model
         public string FundName { get; set; }
 
         public string Description { get; set; }
+
+        public int InvestedAmount { get; set; }
+
+        public int CurrentValueOfInvestedAmount { get; set; }
+
+        public string InvestorName { get; set; }
+
     }
 }

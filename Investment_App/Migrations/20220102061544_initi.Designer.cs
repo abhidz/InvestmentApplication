@@ -3,14 +3,16 @@ using Investment_App.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Investment_App.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220102061544_initi")]
+    partial class initi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,8 +39,8 @@ namespace Investment_App.Migrations
                     b.Property<int>("InvestedAmount")
                         .HasColumnType("int");
 
-                    b.Property<string>("InvestorName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("InvestorName")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -48,11 +50,20 @@ namespace Investment_App.Migrations
                         new
                         {
                             ID = 1,
-                            CurrentValueOfInvestedAmount = 1011,
+                            CurrentValueOfInvestedAmount = 0,
                             Description = "Nifty type fund",
                             FundName = "Nifty Cap Fund",
-                            InvestedAmount = 1000,
-                            InvestorName = "Tab"
+                            InvestedAmount = 0,
+                            InvestorName = 0
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CurrentValueOfInvestedAmount = 0,
+                            Description = "NiftyBank type fund",
+                            FundName = "NiftyBank Cap Fund",
+                            InvestedAmount = 0,
+                            InvestorName = 0
                         });
                 });
 #pragma warning restore 612, 618

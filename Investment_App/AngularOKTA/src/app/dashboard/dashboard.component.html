@@ -9,18 +9,22 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Investor Name</th>
+                    <th>Fund Name</th>
                     <th>Description</th>
+                    <th>Invested Amount</th>
+                    <th>Current Value</th>
                     <th>Edit</th>
-                    <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of fundDetail">
+                    <td>{{item.investorName}}</td>
                     <td>{{item.fundName}}</td>
-                    <td>{{item.description}}</td>
+                    <td>{{item.description}}</td> 
+                    <td>{{item.investedAmount}}</td>
+                    <td>{{item.currentValueOfInvestedAmount}}</td>
                     <td> <button class="btn btn-success" (click)="editFundDetails(item)">Update</button>
-                    <td> <button class="btn btn-success" (click)="deleteFundDetails(item)">Remove</button>
                     </td>
                 </tr>
             </tbody>

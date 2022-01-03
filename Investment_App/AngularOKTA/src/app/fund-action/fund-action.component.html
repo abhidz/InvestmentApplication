@@ -5,21 +5,40 @@
 <div class="formStyle">
     <div class="container">
         <form [formGroup]="fundActionForm" (ngSubmit)="onSubmit(fundActionForm)">
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="fundName">FundName</label>
-                    <input type="text" formControlName="fundName" class="form-control" placeholder="Enter Fund Name">
+                    <label for="investorName">InvestorName</label>
+                    <input type="text" formControlName="investorName" class="form-control" placeholder="Enter the Investor Name">
                 </div>
             </div>
-            <div class="col-sm-8">
+             <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="fundName">FundName</label>
+                    <input type="text" formControlName="fundName" class="form-control" placeholder="Enter the Fund Name">
+                </div>
+            </div> 
+            <div class="col-sm-12">
                 <div class="form-group">
                     <label for="description">Description</label>
                     <input type="text" formControlName="description" class="form-control"
-                        placeholder="Enter Description">
+                        placeholder="Enter the Fund  Description">
                 </div>
-                <div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="investedAmount">Invested Amount</label>
+                    <input type="number" formControlName="investedAmount" class="form-control"
+                        placeholder="Enter the Invested Amount">
                 </div>
-
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="currentValueOfInvestedAmount">Current Value Of Invested Amount</label>
+                    <input type="number" formControlName="currentValueOfInvestedAmount" class="form-control"
+                        placeholder="Enter the Current Value Of Invested Amount">
+                </div>
+            </div>
+            <div>
                 <input type="submit" class="btn btn-success btn-lg" style="width: 200px;" name="Submit" />
             </div>
         </form>

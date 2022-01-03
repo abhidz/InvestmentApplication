@@ -27,6 +27,9 @@ namespace Investment_App.Commands
                 if (fundDetail == null) return null;
                 fundDetail.FundName = command.fundDetails.FundName;
                 fundDetail.Description = command.fundDetails.Description;
+                fundDetail.InvestorName = command.fundDetails.InvestorName;
+                fundDetail.InvestedAmount = command.fundDetails.InvestedAmount;
+                fundDetail.CurrentValueOfInvestedAmount = command.fundDetails.CurrentValueOfInvestedAmount;
                 await _context.SaveChanges();
                 return new CreateFundOrUpdateResult() { Id = fundDetail.ID };
             }

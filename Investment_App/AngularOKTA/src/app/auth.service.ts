@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import config from './config/app-config';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ import config from './config/app-config';
 export class AuthService {
   url: string = '';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   authorize() {
     const authorizationUrl = this.getAuthorizationUrl();
@@ -36,5 +38,12 @@ export class AuthService {
       encodeURI(clientId) +
       "&scope=" +
       encodeURI(scope);
+  }
+
+  logOff(){
+    localStorage.setItem('fundId', '');
+    localStorage.setItem('accesstoken', '');
+    localStorage.setItem('url', '');
+    this.router.navigate(['']);
   }
 }

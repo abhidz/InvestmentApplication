@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
 namespace Investment_App.Model
 {
     public class FundDetail
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public string FundName { get; set; }
 
         public string Description { get; set; }
+
+        public int InvestedAmount { get; set; }
+
+        public int CurrentValueOfInvestedAmount { get; set; }
+
+        public string InvestorName { get; set; }
+
     }
 }

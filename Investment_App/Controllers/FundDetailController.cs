@@ -5,6 +5,7 @@ using MediatR;
 using Investment_App.Commands;
 using Investment_App.Queries;
 using Investment_App.Model;
+using Investment_App.Authorization;
 
 namespace Investment_App.Controllers
 {
@@ -18,6 +19,7 @@ namespace Investment_App.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            //var claims = User.GetEmailClaimValue();
             var command = new GetAllFundDetailsQuery.Command();
             try
             {
@@ -26,7 +28,7 @@ namespace Investment_App.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex);
             }
         }
 
@@ -44,7 +46,7 @@ namespace Investment_App.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex);
             }
         }
 
@@ -58,7 +60,8 @@ namespace Investment_App.Controllers
             };
             try
             {
-                if (command.fundDetails.FundName == null || command.fundDetails.Description == null)
+                if (command.fundDetails.FundName == null || command.fundDetails.Description == null || command.fundDetails.InvestorName == null ||
+                    command.fundDetails.InvestedAmount < 0 || command.fundDetails.CurrentValueOfInvestedAmount < 0)
                 {
                     return BadRequest();
                 }
@@ -68,7 +71,7 @@ namespace Investment_App.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex);
             }
 
         }
@@ -85,7 +88,7 @@ namespace Investment_App.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex);
             }
         }
         [HttpPut("{id}")]
@@ -105,7 +108,7 @@ namespace Investment_App.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex);
             }
         }
     }

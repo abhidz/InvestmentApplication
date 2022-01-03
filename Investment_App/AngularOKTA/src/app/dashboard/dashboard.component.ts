@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { Router } from '@angular/router';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+ 
   fundDetail: any = {};
   routeState: any;
-  constructor(private service: DashboardService, private router: Router) {
+  constructor(private service: DashboardService, private router: Router, private auth:AuthService) {
     if (this.router.getCurrentNavigation()?.extras.state) {
       this.routeState = this.router.getCurrentNavigation()?.extras.state;
       this.fundDetail = this.routeState.example ? JSON.parse(this.routeState.example) : '';
@@ -35,7 +36,7 @@ export class DashboardComponent implements OnInit {
         location.reload();
       }
       else {
-        window.alert('Error');
+        window.alert("API Error. Please retry!")
       }
     });
   }
@@ -49,9 +50,6 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() {
-    localStorage.setItem('fundId', '');
-    localStorage.setItem('accesstoken', '');
-    localStorage.setItem('url', '');
-    this.router.navigate(['']);
+   this.auth.logOff();
   }
 }

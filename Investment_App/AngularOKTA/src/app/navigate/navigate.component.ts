@@ -13,10 +13,13 @@ export class NavigateComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.authorizeCallback().subscribe((data: null | undefined) => {
-      if (data != undefined || data != null) {
+      if (data != null) {
         this.router.navigate(['dashboard'], {
           state: { example: JSON.stringify(data) }
         });
+      }
+      else{
+        window.alert("API Error. Please retry!")
       }
     });
 

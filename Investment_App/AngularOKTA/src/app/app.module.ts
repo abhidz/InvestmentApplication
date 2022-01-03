@@ -8,26 +8,27 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardService } from './dashboard/dashboard.service';
 import { FundActionComponent } from './fund-action/fund-action.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigateComponent } from './navigate/navigate.component';
 import { TokenInterceptor } from './interceptors/token-interceptor';
+import { HandleExceptionInterceptor } from './interceptors/handle-exception';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component:LoginComponent
+    component: LoginComponent
   },
   {
     path: 'callback',
-    component:NavigateComponent
+    component: NavigateComponent
   },
   {
     path: 'dashboard',
-    component:DashboardComponent
+    component: DashboardComponent
   },
   {
     path: 'fundAction',
-    component:FundActionComponent
+    component: FundActionComponent
   }
 ]
 
@@ -46,11 +47,11 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
-],
+  ],
   providers: [DashboardService,
-  {
-    provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true
-  }],
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HandleExceptionInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

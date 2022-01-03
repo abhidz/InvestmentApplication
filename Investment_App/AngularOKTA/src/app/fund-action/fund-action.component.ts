@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { FundActionService } from '../fund-action/fund-action.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-fund-action',
@@ -14,6 +15,7 @@ export class FundActionComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private service: FundActionService,
     private routeService: DashboardService,
+    private auth: AuthService,
     private router: Router) { }
 
   fundActionForm!: FormGroup;
@@ -28,7 +30,10 @@ export class FundActionComponent implements OnInit {
     this.fundActionForm = this.formBuilder.group({
       id: [''],
       fundName: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
+      investedAmount: [null, Validators.required],
+      currentValueOfInvestedAmount: [null, Validators.required],
+      investorName: [null, Validators.required],
     });
 
     if (this.fundId != 'null') {
@@ -42,13 +47,20 @@ export class FundActionComponent implements OnInit {
     this.submitted = false;
     let insertCriteria = {
       FundName: form.value.fundName,
-      Description: form.value.description
+      Description: form.value.description,
+      InvestedAmount: form.value.investedAmount,
+      CurrentValueOfInvestedAmount: form.value.currentValueOfInvestedAmount,
+      InvestorName: form.value.investorName
     }
     let updateCriteria = {
       id: form.value.id,
       FundName: form.value.fundName,
-      Description: form.value.description
+      Description: form.value.description,
+      InvestedAmount: form.value.investedAmount,
+      CurrentValueOfInvestedAmount: form.value.currentValueOfInvestedAmount,
+      InvestorName: form.value.investorName
     }
+
     if (this.fundActionForm != undefined && this.fundActionForm.valid) {
       if (this.fundId == 'null') {
         this.service.insertFundDetail(insertCriteria).subscribe((data: any) => {
@@ -78,6 +90,9 @@ export class FundActionComponent implements OnInit {
                   state: { example: JSON.stringify(data) }
                 });
               }
+              else {
+                window.alert("API Error. Please retry!")
+              }
             });
           }
           else {
@@ -88,14 +103,11 @@ export class FundActionComponent implements OnInit {
 
     }
     else {
-      window.alert('Both fields are mandatory to fill');
+      window.alert('All fields are mandatory to fill');
     }
   }
 
-  logout(){
-    localStorage.setItem('fundId', '');
-    localStorage.setItem('accesstoken', '');
-    localStorage.setItem('url', '');
-    this.router.navigate(['']);
+  logout() {
+    this.auth.logOff();
   }
 }

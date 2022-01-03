@@ -31,6 +31,7 @@ export class DashboardService {
         {});
     if (result != undefined && result.access_token != null) {
       const accessToken = result.access_token;
+      this.getDataFromToken(result.id_token);
       localStorage.setItem('accesstoken',accessToken);
       this.url = config.oidc.apiBaseUrl2 + '/api/FundDetail';
       localStorage.setItem('url',this.url);
@@ -41,6 +42,31 @@ export class DashboardService {
     }
   }
 
+  private getDataFromToken(token:any) {
+    let data = {name: '', email: '' };
+    if (typeof token !== "undefined") {
+        const encoded = token.split(".")[1];
+        data = JSON.parse(this.urlBase64Decode(encoded));
+    }
+    return data;
+}
+
+private urlBase64Decode(str:any) {
+  let output = str.replace("-", "+").replace("_", "/");
+  switch (output.length % 4) {
+      case 0:
+          break;
+      case 2:
+          output += "==";
+          break;
+      case 3:
+          output += "=";
+          break;
+      default:
+          throw new Error("Illegal base64url string!");
+  }
+  return window.atob(output);
+}
   getFundDetails(){
     return  this.http.get(this.url);
   }

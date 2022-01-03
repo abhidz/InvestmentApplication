@@ -22,12 +22,15 @@ namespace Investment_App.Commands
             }
             public async Task<CreateFundOrUpdateResult> Handle(Command command, CancellationToken cancellationToken)
             {
-                    var fundDetail = new FundDetail();
-                    fundDetail.FundName = command.fundDetails.FundName;
-                    fundDetail.Description = command.fundDetails.Description;
-                    var entity = _context.FundDetails.Add(fundDetail).Entity;
-                    await _context.SaveChanges();
-                    return new CreateFundOrUpdateResult() { Id = entity.ID };
+                var fundDetail = new FundDetail();
+                fundDetail.FundName = command.fundDetails.FundName;
+                fundDetail.Description = command.fundDetails.Description;
+                fundDetail.InvestorName = command.fundDetails.InvestorName;
+                fundDetail.CurrentValueOfInvestedAmount = command.fundDetails.CurrentValueOfInvestedAmount;
+                fundDetail.InvestedAmount = command.fundDetails.InvestedAmount;
+                var entity = _context.FundDetails.Add(fundDetail).Entity;
+                await _context.SaveChanges();
+                return new CreateFundOrUpdateResult() { Id = entity.ID };
             }
         }
     }
