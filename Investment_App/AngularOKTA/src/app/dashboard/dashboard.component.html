@@ -1,6 +1,6 @@
 <div>
     <div class="navbar">
-        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Investment App Dashboard </a>
+        <a class="active"><i class="fa fa-fw fa-home"></i> Investment App</a>
         <button class="btn btn-primary" (click)="addNewFund()">Add new Fund</button>
         <button class="btn btn-secondary" (click)="logout()">Logout</button>
     </div>
@@ -15,16 +15,18 @@
                     <th>Invested Amount</th>
                     <th>Current Value</th>
                     <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of fundDetail">
                     <td>{{item.investorName}}</td>
                     <td>{{item.fundName}}</td>
-                    <td>{{item.description}}</td> 
+                    <td>{{item.description}}</td>
                     <td>{{item.investedAmount}}</td>
                     <td>{{item.currentValueOfInvestedAmount}}</td>
-                    <td> <button class="btn btn-success" (click)="editFundDetails(item)">Update</button>
+                    <td> <button class="btn btn-primary" (click)="editFundDetails(item)">Update</button>
+                    <td> <button class="btn btn-primary" (click)="removeFundDetails(item)">Remove</button>
                     </td>
                 </tr>
             </tbody>

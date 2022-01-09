@@ -29,11 +29,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteFundDetails(response: any) {
+  removeFundDetails(response: any) {
     this.service.deleteFundDetails(response.id).subscribe((data) => {
       if (data != undefined || data != null) {
-        window.alert('Selected Fund detail removed');
-        location.reload();
+        window.alert('Selected Fund detail removed. Please re-login');
+        this.router.navigate(['']);
       }
       else {
         window.alert("API Error. Please retry!")

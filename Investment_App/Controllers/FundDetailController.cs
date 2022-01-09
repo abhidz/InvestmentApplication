@@ -19,7 +19,6 @@ namespace Investment_App.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            //var claims = User.GetEmailClaimValue();
             var command = new GetAllFundDetailsQuery.Command();
             try
             {
@@ -60,7 +59,7 @@ namespace Investment_App.Controllers
             };
             try
             {
-                if (command.fundDetails.FundName == null || command.fundDetails.Description == null || command.fundDetails.InvestorName == null ||
+                if (command.fundDetails == null || command.fundDetails.FundName == null || command.fundDetails.Description == null || command.fundDetails.InvestorName == null ||
                     command.fundDetails.InvestedAmount < 0 || command.fundDetails.CurrentValueOfInvestedAmount < 0)
                 {
                     return BadRequest();
@@ -78,6 +77,10 @@ namespace Investment_App.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
             var command = new DeleteFundCommand.Command
             {
                 ID = id
