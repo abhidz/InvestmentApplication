@@ -16,7 +16,7 @@ EXPOSE 80
 #We use this image to build app. We want to optimise so that only useful things should use in run the app
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-#Copy project csproj file and restore the nuget dependencies 
+#Copy project csproj file and restore the nuget dependency
 COPY ["Investment_App/Investment_App.csproj", "Investment_App/"]
 RUN dotnet restore "Investment_App/Investment_App.csproj"
 #Copy the project remaining files and build the project
