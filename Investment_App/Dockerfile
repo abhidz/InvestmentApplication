@@ -17,8 +17,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 #Copy project csproj file and restore the nuget dependencies 
-COPY ["Investment_App/Investment_App.csproj", "Investment_App/"]
-RUN dotnet restore "Investment_App/Investment_App.csproj"
+#COPY ["Investment_App/Investment_App.csproj", "Investment_App/"]
+#RUN dotnet restore "Investment_App/Investment_App.csproj"
 #Copy the project remaining files and build the project
 COPY . .
 RUN dotnet build "Investment_App/Investment_App.csproj" -c Release -o /app/build
@@ -47,3 +47,7 @@ COPY --from=publish /app/publish .
 COPY --from=npmbuild /usr/dist/AngularOKTA ./wwwroot/scripts
 ##Use dotnet command to run Investment_App.dll
 ENTRYPOINT ["dotnet", "Investment_App.dll"]
+
+#Build -  docker build -f .\Avalara.VatWorkflow.Web\Dockerfile -t wfweb .
+#Run docker container run -it --rm --name test --env AVA_ENV_NAME=localhost -p 5300:80 wfweb
+#C:\Work\vat-workflow-website\Docker>docker-compose up
