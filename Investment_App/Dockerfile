@@ -17,8 +17,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 #Copy project csproj file and restore the nuget dependencies 
-#COPY ["Investment_App/Investment_App.csproj", "Investment_App/"]
-#RUN dotnet restore "Investment_App/Investment_App.csproj"
+COPY ["Investment_App/Investment_App.csproj", "Investment_App/"]
+RUN dotnet restore "Investment_App/Investment_App.csproj"
 #Copy the project remaining files and build the project
 COPY . .
 RUN dotnet build "Investment_App/Investment_App.csproj" -c Release -o /app/build
